@@ -802,6 +802,74 @@ Spy.options = {
 				},
 			},
 		},
+		ZoneFilterOptions = {
+			name = L["ZoneFilterOptions"],
+			desc = L["ZoneFilterOptions"],
+			type = "group",
+			order = 6,
+			args = {
+				intro = {
+					name = L["ZoneFilterOptionsDescription"],
+					type = "description",
+					order = 1,
+				},
+				Gadgetzan = {
+					name = "Gadgetzan",
+					type = "toggle",
+					order = 2,
+					get = function(info)
+						return SpyDB.ZoneFilter.Gadgetzan
+					end,
+					set = function(info, value)
+						SpyDB.ZoneFilter.Gadgetzan = value
+					end,
+				},
+				Ratchet = {
+					name = "Ratchet",
+					type = "toggle",
+					order = 3,
+					get = function(info)
+						return SpyDB.ZoneFilter.Ratchet
+					end,
+					set = function(info, value)
+						SpyDB.ZoneFilter.Ratchet = value
+					end,
+				},
+				BootyBay = {
+					name = "Booty Bay",
+					type = "toggle",
+					order = 4,
+					get = function(info)
+						return SpyDB.ZoneFilter.BootyBay
+					end,
+					set = function(info, value)
+						SpyDB.ZoneFilter.BootyBay = value
+					end,
+				},			
+				Everlook = {
+					name = "Everlook",
+					type = "toggle",
+					order = 5,
+					get = function(info)
+						return SpyDB.ZoneFilter.Everlook
+					end,
+					set = function(info, value)
+						SpyDB.ZoneFilter.Everlook = value
+					end,
+				},			
+				TheSaltySailorTavern = {
+					name = "The Salty Sailor Tavern",
+					type = "toggle",
+					order = 6,
+					get = function(info)
+						return SpyDB.ZoneFilter.TheSaltySailorTavern
+					end,
+					set = function(info, value)
+						SpyDB.ZoneFilter.TheSaltySailorTavern = value
+					end,
+				},										
+			},
+		},
 		DataOptions = {
 			name = L["DataOptions"],
 			desc = L["DataOptions"],
@@ -1226,6 +1294,12 @@ function Spy:CheckDatabase()
 	if SpyDB.removeKOSData == nil then SpyDB.removeKOSData = {} end
 	if SpyDB.removeKOSData[Spy.RealmName] == nil then SpyDB.removeKOSData[Spy.RealmName] = {} end
 	if SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName] == nil then SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName] = {} end
+	if SpyDB.ZoneFilter == nil then SpyDB.ZoneFilter = {} end
+	if SpyDB.ZoneFilter.Gadgetzan == nil then SpyDB.ZoneFilter.Gadgetzan = false end
+	if SpyDB.ZoneFilter.BootyBay == nil then SpyDB.ZoneFilter.BootyBay = false end
+	if SpyDB.ZoneFilter.Ratchet == nil then SpyDB.ZoneFilter.Ratchet = false end
+	if SpyDB.ZoneFilter.Everlook == nil then SpyDB.ZoneFilter.Everlook = false end
+	if SpyDB.ZoneFilter.TheSaltySailorTavern == nil then SpyDB.ZoneFilter.TheSaltySailorTavern = false end
 	if Spy.db.profile == nil then Spy.db.profile = Default_Profile.profile end
 	if Spy.db.profile.Colors == nil then Spy.db.profile.Colors = Default_Profile.profile.Colors end
 	if Spy.db.profile.Colors["Window"] == nil then Spy.db.profile.Colors["Window"] = Default_Profile.profile.Colors["Window"] end
@@ -1343,7 +1417,7 @@ function Spy:CheckDatabase()
 	if Spy.db.profile.UseData == nil then Spy.db.profile.UseData = Default_Profile.profile.UseData end
 	if Spy.db.profile.ShareKOSBetweenCharacters == nil then Spy.db.profile.ShareKOSBetweenCharacters = Default_Profile.profile.ShareKOSBetweenCharacters end
 	if Spy.db.profile.AppendUnitNameCheck == nil then Spy.db.profile.AppendUnitNameCheck = Default_Profile.profile.AppendUnitNameCheck end
-	if Spy.db.profile.AppendUnitKoSCheck == nil then Spy.db.profile.AppendUnitKoSCheck = Default_Profile.profile.AppendUnitKoSCheck end	
+	if Spy.db.profile.AppendUnitKoSCheck == nil then Spy.db.profile.AppendUnitKoSCheck = Default_Profile.profile.AppendUnitKoSCheck end
 end
 
 function Spy:ResetProfile()
@@ -1377,6 +1451,7 @@ function Spy:SetupOptions()
 	self.optionsFrames.ListOptions = ACD3:AddToBlizOptions("Spy", L["ListOptions"], L["Spy Option"], "ListOptions")
 	self.optionsFrames.DataOptions = ACD3:AddToBlizOptions("Spy", L["MinimapOptions"], L["Spy Option"], "MinimapOptions")
 	self.optionsFrames.DataOptions = ACD3:AddToBlizOptions("Spy", L["DataOptions"], L["Spy Option"], "DataOptions")
+	self.optionsFrames.ZoneFilerOptions = ACD3:AddToBlizOptions("Spy", L["ZoneFilterOptions"], L["Spy Option"], "ZoneFilterOptions")
 
 	self:RegisterModuleOptions("Profiles", LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db), L["Profiles"])
 	Spy.options.args.Profiles.order = -2
@@ -1619,7 +1694,9 @@ function Spy:ZoneChanged()
 	Spy.InInstance = false
 	local pvpType = GetZonePVPInfo()
 	local subZone = GetSubZoneText()
-	if pvpType == "sanctuary" or GetZoneText() == "" or subZone == "The Vindicaar" then --++ chg so Spy is not active in the Vindicaar 	
+	
+	local isInFilteredZone = SpyData:IsInFilteredZone(subZone)	
+	if pvpType == "sanctuary" or zone == "" or subZone == "The Vindicaar" or isInFilteredZone then  	
 		Spy.EnabledInZone = false
 	else
 		Spy.EnabledInZone = true

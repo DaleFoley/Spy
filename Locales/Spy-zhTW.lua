@@ -165,6 +165,11 @@ L["LimitSameZoneDescription"] = "只顯示同一個區域中偵測到的敵人�
 L["LimitSameContinent"] = "相同大陸"
 L["LimitSameContinentDescription"] = "只顯示同一塊大陸中偵測到的敵人。"
 
+L["ZoneFilterOptions"] = "中性區過濾器"
+L["ZoneFilterOptionsDescription"] = [[
+僅顯示在同一大洲中檢測到的敵人。
+]]
+
 L["DataOptions"] = "資料維護"
 L["DataOptionsDescription"] = [[
 設定 Spy 如何收集和維護資料。

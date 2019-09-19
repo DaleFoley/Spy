@@ -105,6 +105,20 @@ function SpyData:IsPlayer(name)  --??
     return (SpyPerCharDB.PlayerData[name] and true or false)	
 end
 
+function SpyData:IsInFilteredZone(subzone)
+	local isInFilteredZone = false
+	
+	subzone = subzone:gsub("%s", "")
+	for filteredZone, value in pairs(SpyDB.ZoneFilter) do
+		if subzone == filteredZone and value then			
+			isInFilteredZone = true
+			break
+		end
+	end
+	
+	return isInFilteredZone
+end
+
 function SpyData:GetPlayer(name) --++
     return SpyPerCharDB.PlayerData[name]	
 end

@@ -164,6 +164,11 @@ L["LimitSameZone"] = "Gleiche Zone"
 L["LimitSameZoneDescription"] = "Zeigt nur die entdeckten Feinde auf der Karte an, die sich in der gleichen Zone befinden."
 L["LimitSameContinent"] = "Gleicher Kontinent"
 L["LimitSameContinentDescription"] = "Zeigt nur die entdeckten Feinde auf der Karte an, die sich auf dem gleichen Kontinent befinden."
+
+L["ZoneFilterOptions"] = "Neutralzonenfilter"
+L["ZoneFilterOptionsDescription"] = [[
+Legen Sie neutrale Zonen fest, in denen Spy nicht aktiv sein soll, z. B. in neutralen Städten wie Gadgetzan.
+]]
  
 L["DataOptions"] = "Datenmanagement"
 L["DataOptionsDescription"] = [[

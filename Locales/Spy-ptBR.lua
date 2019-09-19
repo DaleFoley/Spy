@@ -165,6 +165,11 @@ L["LimitSameZoneDescription"] = "Mostrar no mapa somente inimigos que estejam na
 L["LimitSameContinent"] = "Mesmo Continente"
 L["LimitSameContinentDescription"] = "Mostrar no mapa somente inimigos que estejam no mesmo continente que você."
 
+L["ZoneFilterOptions"] = "Filtro de zona neutra"
+L["ZoneFilterOptionsDescription"] = [[
+Defina zonas neutras nas quais queremos que o Spy não seja ativo, ou seja, cidades neutras como Gadgetzan vêm à mente.
+]]
+
 L["DataOptions"] = "Gerenciamento de Dados"
 L["DataOptionsDescription"] = [[
 Você pode configurar como o Spy coleta e mantem os dados.
